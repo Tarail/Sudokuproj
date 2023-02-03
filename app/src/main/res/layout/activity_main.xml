@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:gravity="center"
+        android:text="Судоку"
+        android:textColor="#6699ca"
+        android:textSize="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2
+" />
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="40dp"
+        android:gravity="center"
+        android:onClick="onClickCon"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Продолжить"
+        android:textColor="#cccc00"
+        android:textSize="20dp"
+        android:background="@drawable/rectangle"
+        />
+
+    <Button
+        android:id="@+id/new_eazy_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="onClickEz"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#00cc00"
+        android:text="Начать легкую"
+        android:textSize="20dp"
+        android:background="@drawable/rectangle"
+        />
+    <Button
+        android:id="@+id/new_medium_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="onClickMed"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#ff0000"
+        android:text="Начать нормальную"
+        android:textSize="20dp"
+        android:background="@drawable/rectangle"
+        />
+
+</LinearLayout>
