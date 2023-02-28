@@ -22,21 +22,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2
 " />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="120dp"
+        android:entries="@array/modes"
+        android:id="@+id/spin"
+
+        />
+
     <Button
         android:id="@+id/continue_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="1"
+        android:background="@drawable/rectangle"
         android:gravity="center"
         android:onClick="onClickCon"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="8dp"
         android:text="Продолжить"
-        android:textColor="#cccc00"
+        android:textColor="#bb44ff"
         android:textSize="20dp"
-        android:background="@drawable/rectangle"
-        />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/new_eazy_game"
@@ -58,15 +68,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:onClick="onClickMed"
+        android:onClick="onClickMid"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="#cccc00"
+        android:text="Начать нормальную"
+        android:textSize="20dp"
+        android:background="@drawable/rectangle"
+        />
+    <Button
+        android:id="@+id/new_hard_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="onClickHard"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:textColor="#ff0000"
-        android:text="Начать нормальную"
+        android:text="Начать сложную"
         android:textSize="20dp"
         android:background="@drawable/rectangle"
         />
-
 </LinearLayout>

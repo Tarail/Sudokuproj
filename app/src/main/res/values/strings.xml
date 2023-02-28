@@ -9,6 +9,10 @@
     <string name="seven">7</string>
     <string name="eight">8</string>
     <string name="nine">9</string>
-
+    <string-array name="modes">
+        <item>Режим: обучающий</item>
+        <item>Режим: обычный</item>
+        <item>Режим: сложный</item>
+    </string-array>
 
 </resources>
