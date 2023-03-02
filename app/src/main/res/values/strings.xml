@@ -12,7 +12,7 @@
     <string-array name="modes">
         <item>Режим: обучающий</item>
         <item>Режим: обычный</item>
-        <item>Режим: сложный</item>
+        <item>Режим: чемпион</item>
     </string-array>
 
 </resources>

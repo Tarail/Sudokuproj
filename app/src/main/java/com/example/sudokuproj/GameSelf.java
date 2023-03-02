@@ -26,20 +26,25 @@ public class GameSelf extends AppCompatActivity {
         mode = args.getString("mode");
         View opn = findViewById(R.id.open);
         View hnt = findViewById(R.id.hints);
-
+        gameboard=findViewById(R.id.sudokuBoard);
 
         if (mode.equals("2")){
             opn.setVisibility(View.INVISIBLE);
             hnt.setVisibility(View.INVISIBLE);
             t=0;
+            gameboard.difficulty=2;
         }
-        if (mode.equals("1")){
-            t=3;
-            hnt.setVisibility(View.INVISIBLE);
-        }
+        else
+            if (mode.equals("1")){
+                t=3;
+                hnt.setVisibility(View.INVISIBLE);
+                gameboard.difficulty=1;
+            }
+            else
+                gameboard.difficulty=0;
         String tt = String.valueOf(t);
         back = findViewById(R.id.back);
-        gameboard=findViewById(R.id.sudokuBoard);
+
         tabl = gameboard.board;
         if (difficulty=="Ez")
             tabl.makeEazy();
@@ -47,6 +52,7 @@ public class GameSelf extends AppCompatActivity {
             tabl.makeMiddle();
         if (difficulty=="Hd")
             tabl.makeMiddle();
+        //tabl.cur=tabl.correct;
         Log.d("appWork", "done");
     }
 
@@ -87,6 +93,17 @@ public class GameSelf extends AppCompatActivity {
         }
         gameboard.invalidate();
     }
+    public void takePutPensil(View view){
+        if (gameboard.pensil) {
+            gameboard.pensil=false;
+            view.setBackgroundColor(Color.parseColor("#00BCD4"));
+        }
+        else {
+            gameboard.pensil=true;
+            view.setBackgroundColor(Color.GREEN);
+
+        }
+    }
     public void back(View view){
         Log.d("appWork", "back");
         if (backeble==0)
@@ -96,7 +113,10 @@ public class GameSelf extends AppCompatActivity {
         Log.d("appWork", "back3");
         View bck = findViewById(R.id.back);
         bck.setBackgroundColor(Color.RED);
+        if (gameboard.difficulty==2)
+            backeble=0;
         gameboard.board.cur=gameboard.board.transp(gameboard.board.lastCorrect);
+        gameboard.board.gen=gameboard.board.transp(gameboard.board.lastCorrect);
         gameboard.invalidate();
     }
     public void backInMenu(View view){

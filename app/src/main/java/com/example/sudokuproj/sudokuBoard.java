@@ -21,8 +21,9 @@ public class sudokuBoard extends View {
     private final int boardColor;
     private final int cellFillColor;
     private final int cellsHighlightColor;
-    private boolean pensil;
+    public boolean pensil;
     public boolean hint;
+    public int difficulty;
 
     private final Paint boardColorPaint = new Paint();
     private final Paint cellFillColorPaint = new Paint();
@@ -32,6 +33,8 @@ public class sudokuBoard extends View {
     private final Rect miniletterPaintBounds = new Rect();
     private int cellsize;
     private int[][] cur;
+    private int[][] base;
+    private int[][][] pnsl;
     private int selectedX, selectedY;
 
 
@@ -41,6 +44,12 @@ public class sudokuBoard extends View {
         cur = new int[][]{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        cur = new int[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9}, {7, 8, 9, 1, 2, 3, 4, 5, 6}, {4, 5, 6, 7, 8, 9, 1, 2, 3},
+                {9, 1, 2, 3, 4, 5, 6, 7, 8}, { 6, 7, 8, 9, 1, 2, 3, 4, 5}, {3, 4, 5, 6, 7, 8, 9, 1, 2},
+                {8, 9, 1, 2, 3, 4, 5, 6, 7}, {5, 6, 7, 8, 9, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 8, 9, 1}};
+        pnsl = new int[9][9][9];
+        startPnsl();
+        pensil = false;
         TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.sudokuBoard,
                 0, 0);
         try {
@@ -54,6 +63,15 @@ public class sudokuBoard extends View {
         finally
         {
             a.recycle();
+        }
+    }
+    public void startPnsl(){
+        for (int i=0; i<9; i++){
+            for (int ii=0; ii<9; ii++){
+                for (int iii=0; iii<9; iii++){
+                    pnsl[i][ii][iii]=0;
+                }
+            }
         }
     }
     public void setBoard(SudokuTable a){
@@ -70,13 +88,20 @@ public class sudokuBoard extends View {
     }
 
     public void setSelectedNum(int a){
+        if (board.gen[selectedX][selectedY]!=0)
+            return;
         if (selectedY==-1 || selectedX==-1)
             return;
         if (board.cur[selectedX][selectedY]==a) {
             board.cur[selectedX][selectedY]=0;
             return;
         }
+        if (board.cur[selectedX][selectedY]==0 && pensil){
+            pnsl[selectedX][selectedY][a-1]=a;
+            return;
+        }
         board.cur[selectedX][selectedY]=a;
+        pnsl[selectedX][selectedY]=new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
         if (board.correct[selectedX][selectedY]==a)
             board.lastCorrect[selectedX][selectedY]=a;
     }
@@ -123,6 +148,7 @@ public class sudokuBoard extends View {
         DrawNumbers(canvas);
         if (hint)
             DrawMiniNumbers(canvas);
+        DrawPensil(canvas);
         Log.d("mytag", "Done");
     }
 
@@ -149,8 +175,8 @@ public class sudokuBoard extends View {
         return isValid;
     }
 
-    private void colorCell(Canvas canvas, int r, int c){    
-        if (board.getSelectedCollumn()!=-1 && board.getSelectedRow()!=-1){
+    private void colorCell(Canvas canvas, int r, int c){
+        if (c!=-1 && r!=-1){
             cellsHighlightColorPaint.setColor(Color.parseColor("#D9FFFF"));
             canvas.drawRect((c-1)*cellsize, 0, c*cellsize, cellsize*9,
                     cellsHighlightColorPaint);
@@ -188,6 +214,7 @@ public class sudokuBoard extends View {
                     cellsize*c, getMeasuredWidth(), boardColorPaint);
         }
         Log.d("mytag", "Vertical_Drawn");
+
         for (int c = 0; c<10; c++){
             if (c%3==0)
                 DrawThickLine();
@@ -196,6 +223,7 @@ public class sudokuBoard extends View {
             canvas.drawLine(0, cellsize*c,
                     getMeasuredWidth(), cellsize*c, boardColorPaint);
         }
+
         Log.d("mytag", "Horizontal_Drawn");
     }
 
@@ -211,13 +239,13 @@ public class sudokuBoard extends View {
                     continue;
                 String text = Integer.toString(theNum);
                 Log.d("mytag", text);
-                if (board.cur[c-1][cc-1]!=board.correct[c-1][cc-1])
+                if (board.cur[c-1][cc-1]!=board.correct[c-1][cc-1] && difficulty!=2)
                     letterPaint.setColor(Color.RED);
                 else
-                    if (board.cur[c-1][cc-1]==board.gen[c-1][cc-1])
-                        letterPaint.setColor(Color.BLACK);
-                    else
-                        letterPaint.setColor(Color.parseColor("#994499"));
+                if (board.cur[c-1][cc-1]==board.gen[c-1][cc-1])
+                    letterPaint.setColor(Color.BLACK);
+                else
+                    letterPaint.setColor(Color.parseColor("#994499"));
                 letterPaint.getTextBounds(text, 0, text.length(), letterPaintBounds);
                 width=letterPaint.measureText(text);
                 height=letterPaintBounds.height();
@@ -240,6 +268,29 @@ public class sudokuBoard extends View {
                     if (gg[i]==0)
                         continue;
                     int num = gg[i];
+                    int qazyNum = num - 1;
+                    String text = Integer.toString(num);
+                    letterPaint.setColor(Color.GRAY);
+                    letterPaint.getTextBounds(text, 0, text.length(), miniletterPaintBounds);
+                    int numy = ((qazyNum/3) - 2) * (cellsize/3);
+                    int numx = (qazyNum%3) * (cellsize/3);
+                    canvas.drawText(text, ((cc-1)*cellsize + numx + cellsize/16), (c*cellsize + numy - cellsize/22), letterPaint);
+                }
+            }
+        }
+        Log.d("mytag", "Numbers");
+    }
+    private void DrawPensil(Canvas canvas){
+        letterPaint.setTextSize(cellsize/100*32);
+        for (int c = 1; c<10; c++){
+            for (int cc = 1; cc<10; cc++){
+                int theNum = board.cur[c-1][cc-1];
+                if (theNum!=0)
+                    continue;
+                for (int i = 0; i < 9; i++){
+                    if (pnsl[c-1][cc-1][i]==0)
+                        continue;
+                    int num = pnsl[c-1][cc-1][i];
                     int qazyNum = num - 1;
                     String text = Integer.toString(num);
                     letterPaint.setColor(Color.GRAY);

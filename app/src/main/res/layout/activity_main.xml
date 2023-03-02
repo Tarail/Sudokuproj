@@ -42,7 +42,7 @@
         android:layout_weight="1"
         android:background="@drawable/rectangle"
         android:gravity="center"
-        android:onClick="onClickCon"
+        android:onClick="onClickEz"
         android:text="Продолжить"
         android:textColor="#bb44ff"
         android:textSize="20dp"

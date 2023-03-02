@@ -56,10 +56,11 @@
 
     <com.example.sudokuproj.sudokuBoard
         android:id="@+id/sudokuBoard"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
         android:layout_marginTop="20dp"
         android:layout_weight="4"
+        android:layout_marginLeft="4dp"
         custom:cellFillColor="#6600DDFF"
         custom:cellsHighlightColor="#2600DDFF"
         custom:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +71,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="60dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 

@@ -10,10 +10,12 @@ public class SudokuTable {
     public SudokuTable(){
         selectedRow=-1;
         selectedCollumn=-1;
+
         gen = new int[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9}, {7, 8, 9, 1, 2, 3, 4, 5, 6}, {4, 5, 6, 7, 8, 9, 1, 2, 3},
                 {9, 1, 2, 3, 4, 5, 6, 7, 8}, { 6, 7, 8, 9, 1, 2, 3, 4, 5}, {3, 4, 5, 6, 7, 8, 9, 1, 2},
                 {8, 9, 1, 2, 3, 4, 5, 6, 7}, {5, 6, 7, 8, 9, 1, 2, 3, 4}, {2, 3, 4, 5, 6, 7, 8, 9, 1}};
         numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
         generateStart();
     }
     public void printNums(){
@@ -289,7 +291,7 @@ public class SudokuTable {
             b=(int) (Math.random()*3);
             gen[h*3+b][w*3+a] = 0;
         }
-        int t=(int) (Math.random()*10)+20;
+        int t=(int) (Math.random()*10)+15;
 
         for (int i=0; i<10; i++){
             a=(int) (Math.random()*9);
