@@ -41,8 +41,10 @@
         android:layout_marginRight="40dp"
         android:layout_weight="1"
         android:background="@drawable/rectangle"
+
+        android:foregroundTint="@color/black"
         android:gravity="center"
-        android:onClick="onClickEz"
+        android:onClick="onClickCon"
         android:text="Продолжить"
         android:textColor="#bb44ff"
         android:textSize="20dp"

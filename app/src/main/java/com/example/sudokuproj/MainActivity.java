@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         else
             takeEaz();
     }
+
     public void hideHard(){
         Button newEazyButton =findViewById(R.id.new_hard_game);
         newEazyButton.setVisibility(View.INVISIBLE);
@@ -74,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClickCon(View view){
         Intent i;
         i = new Intent(this, GameSelf.class);
+        i.putExtra("table", "Mid");
         spinCheck1();
+        i.putExtra("mode", String.valueOf(mode));
         startActivity(i);
     }
     public void onClickEz(View view){

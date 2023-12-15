@@ -38,9 +38,10 @@ public class sudokuBoard extends View {
     private int selectedX, selectedY;
 
 
-    public SudokuTable board = new SudokuTable();
+    public SudokuTable board;
     public sudokuBoard(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        board = new SudokuTable(3);
         cur = new int[][]{{0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0}};
@@ -54,8 +55,8 @@ public class sudokuBoard extends View {
                 0, 0);
         try {
             hint=false;
-            board.makeEazy();
-            board.reroll();
+            //board.makeField(1);
+            //board.reroll();
             boardColor=a.getInteger(R.styleable.sudokuBoard_boardColor, 0);
             cellFillColor=a.getInteger(R.styleable.sudokuBoard_cellFillColor, 0);
             cellsHighlightColor=a.getInteger(R.styleable.sudokuBoard_cellsHighlightColor, 0);
@@ -81,10 +82,13 @@ public class sudokuBoard extends View {
         return board;
     }
     public void getEasy(){
-        board.makeEazy();
+        board.makeField(0);
     }
     public void getMiddle(){
-        board.makeMiddle();
+        board.makeField(1);
+    }
+    public void getHard(){
+        board.makeField(2);
     }
 
     public void setSelectedNum(int a){
